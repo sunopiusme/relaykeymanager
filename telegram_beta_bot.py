@@ -611,7 +611,7 @@ async def handle_custom_donation_amount(update: Update, context: ContextTypes.DE
 
 
 async def create_and_send_invoice(chat_id: int, user_id: int, stars_amount: int, usd_amount: float, context: ContextTypes.DEFAULT_TYPE):
-    """Create invoice link and send payment button"""
+    """Create invoice link and send payment button with Pay in App option"""
     import json
     
     payload = json.dumps({
@@ -632,11 +632,22 @@ async def create_and_send_invoice(chat_id: int, user_id: int, stars_amount: int,
             provider_token=""  # Empty for digital goods
         )
         
-        # Send button with invoice link
-        keyboard = [[InlineKeyboardButton(
-            f"⭐ Pay {stars_amount} Stars (${usd_amount:.2f})",
-            url=invoice_link
-        )]]
+        # TMA URL with startapp parameter for "Pay in App"
+        # Format: t.me/bot/app?startapp=donate_AMOUNT_STARS
+        startapp_param = f"donate_{usd_amount}_{stars_amount}"
+        tma_pay_url = f"{TMA_URL}?startapp={startapp_param}"
+        
+        # Send buttons: Pay directly + Pay in App
+        keyboard = [
+            [InlineKeyboardButton(
+                f"⭐ Pay {stars_amount} Stars (${usd_amount:.2f})",
+                url=invoice_link
+            )],
+            [InlineKeyboardButton(
+                "📱 Pay in App",
+                url=tma_pay_url
+            )]
+        ]
         reply_markup = InlineKeyboardMarkup(keyboard)
         
         await context.bot.send_message(

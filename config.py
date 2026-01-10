@@ -27,7 +27,7 @@ ED25519_PRIVATE_KEY_HEX = os.environ.get("RELAY_BETA_SIGNING_KEY", "")
 ED25519_PUBLIC_KEY_HEX = os.environ.get("RELAY_BETA_PUBLIC_KEY", "")
 
 # Telegram Mini App URL for donations (leaderboard only)
-TMA_URL = os.environ.get("RELAY_TMA_URL", "https://your-tma-url.vercel.app")
+TMA_URL = os.environ.get("RELAY_TMA_URL", "https://t.me/relaykeygen_bot/relaypayments")
 
 # Donation settings
 DONATION_GOAL_STARS = 50000  # Goal: 50,000 Stars (~$1000)
