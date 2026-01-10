@@ -632,10 +632,9 @@ async def create_and_send_invoice(chat_id: int, user_id: int, stars_amount: int,
             provider_token=""  # Empty for digital goods
         )
         
-        # TMA URL with startapp parameter for "Pay in App"
-        # Format: t.me/bot/app?startapp=donate_AMOUNT_STARS
-        startapp_param = f"donate_{usd_amount}_{stars_amount}"
-        tma_pay_url = f"{TMA_URL}?startapp={startapp_param}"
+        # TMA Web URL with query params for "Pay in App"
+        # WebAppInfo requires direct HTTPS URL, not t.me link
+        tma_pay_url = f"{TMA_WEB_URL}?amount={usd_amount}&stars={stars_amount}"
         
         # Send buttons: Pay directly + Pay in App
         keyboard = [
@@ -645,7 +644,7 @@ async def create_and_send_invoice(chat_id: int, user_id: int, stars_amount: int,
             )],
             [InlineKeyboardButton(
                 "📱 Pay in App",
-                url=tma_pay_url
+                web_app=WebAppInfo(url=tma_pay_url)
             )]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
