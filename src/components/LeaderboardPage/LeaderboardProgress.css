@@ -1,0 +1,63 @@
+.progress-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 8px;
+}
+
+.progress-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.progress-raised,
+.progress-goal {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.progress-goal {
+  align-items: flex-end;
+}
+
+.progress-raised__value {
+  font-size: 22px;
+  font-weight: 600;
+  color: #1c1c1e;
+  letter-spacing: -0.5px;
+}
+
+.progress-raised__label {
+  font-size: 13px;
+  color: #8e8e93;
+  letter-spacing: -0.2px;
+}
+
+.progress-goal__value {
+  font-size: 17px;
+  font-weight: 500;
+  color: #8e8e93;
+  letter-spacing: -0.4px;
+}
+
+.progress-goal__label {
+  font-size: 13px;
+  color: #aeaeb2;
+  letter-spacing: -0.2px;
+}
+
+.progress-track {
+  height: 6px;
+  background: #e5e5ea;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #34c759;
+  border-radius: 3px;
+}

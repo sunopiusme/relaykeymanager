@@ -1,0 +1,33 @@
+.leaderboard-container {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: #f2f2f7;
+  display: flex;
+  flex-direction: column;
+  padding-left: 16px;
+  padding-right: 16px;
+  gap: 8px;
+}
+
+.leaderboard-header-section {
+  flex-shrink: 0;
+}
+
+.leaderboard-list-section {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 16px;
+}
+
+.leaderboard-list-section::-webkit-scrollbar {
+  display: none;
+}
+
+.leaderboard-list-section {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

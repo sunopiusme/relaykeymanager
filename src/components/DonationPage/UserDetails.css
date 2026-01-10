@@ -1,0 +1,121 @@
+.checkout-card {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.checkout-summary {
+  padding: 16px;
+}
+
+.checkout-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.checkout-label {
+  font-size: 15px;
+  font-weight: 400;
+  color: #6b7280;
+}
+
+.checkout-value {
+  font-size: 15px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.checkout-free {
+  color: #10b981;
+  font-weight: 500;
+}
+
+.checkout-divider {
+  height: 1px;
+  background: #f3f4f6;
+  margin: 12px 0;
+}
+
+.checkout-total {
+  padding-top: 12px;
+}
+
+.checkout-total .checkout-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.checkout-total-value {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.checkout-payment {
+  background: #fafafa;
+  padding: 16px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.checkout-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #9ca3af;
+  margin-bottom: 12px;
+}
+
+.payment-method {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 2px solid #111827;
+}
+
+.payment-method-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.payment-method-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.payment-method-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.payment-method-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.payment-method-account {
+  font-size: 13px;
+  font-weight: 400;
+  color: #6b7280;
+}
+
+.payment-method-check {
+  flex-shrink: 0;
+}

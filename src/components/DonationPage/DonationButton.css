@@ -1,0 +1,133 @@
+.donation-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Premium button with elegant shimmer */
+.donation-button-premium {
+  position: relative;
+  width: 100%;
+  height: 56px;
+  border-radius: 28px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: linear-gradient(180deg, #2c2c2e 0%, #1a1a1a 100%);
+  color: #fff;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  transition: transform 0.2s ease;
+}
+
+.donation-button-premium:active {
+  transform: scale(0.98);
+}
+
+.donation-button-text {
+  position: relative;
+  z-index: 1;
+}
+
+/* Clean shimmer - moves once then waits */
+.donation-button-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 25%,
+    rgba(255, 255, 255, 0.15) 37%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.15) 63%,
+    transparent 75%
+  );
+  background-size: 300% 100%;
+  background-position: 100% 0;
+  animation: btn-shimmer 8s infinite;
+  pointer-events: none;
+}
+
+@keyframes btn-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  20% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.donation-button-premium:focus-visible {
+  outline: 3px solid rgba(0, 122, 255, 0.4);
+  outline-offset: 2px;
+}
+
+.donation-button {
+  width: 100%;
+  min-height: 56px;
+  padding: 16px 24px;
+  border-radius: 16px;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: -0.4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.donation-button:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+.donation-button-primary {
+  background: #000000;
+  color: #ffffff;
+}
+
+.donation-button-primary:hover {
+  background: #1c1c1e;
+}
+
+.donation-button-primary:active {
+  background: #2c2c2e;
+}
+
+.donation-button-secondary {
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.donation-button-secondary:hover {
+  background: #fafafa;
+}
+
+.donation-button-secondary:active {
+  background: #f5f5f5;
+}
+
+.donation-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.donation-button:disabled:active {
+  transform: none;
+}
+
+.donation-button:focus-visible {
+  outline: 3px solid rgba(0, 122, 255, 0.4);
+  outline-offset: 2px;
+}
