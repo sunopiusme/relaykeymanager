@@ -51,15 +51,27 @@ def start_health_server():
 from config import (
     BOT_TOKEN, ADMIN_IDS, BETA_DAYS, BETA_COHORT,
     MAX_BETA_USERS, DATA_DIR, DATA_FILE, ED25519_PRIVATE_KEY_HEX,
-    MAX_ACTIVATIONS_PER_KEY, TMA_URL, DONATION_GOAL_STARS, STARS_PER_DOLLAR,
+    MAX_ACTIVATIONS_PER_KEY, TMA_URL, TMA_WEB_URL, DONATION_GOAL_STARS, STARS_PER_DOLLAR,
     DONATION_PRESETS_USD, DONATION_MILESTONES
 )
 from crypto import create_signed_beta_key, generate_discount_code, NACL_AVAILABLE
 from activation_tracker import get_activation_stats
-from donations import (
-    record_donation, get_donation_stats, get_leaderboard,
-    get_last_milestone, set_last_milestone
-)
+
+# Use Supabase for donations if available, fallback to JSON
+USE_SUPABASE = True
+try:
+    from supabase_client import (
+        record_donation, get_donation_stats, get_leaderboard,
+        get_last_milestone, set_last_milestone
+    )
+    print("✅ Using Supabase for donations")
+except ImportError as e:
+    print(f"⚠️ Supabase not available ({e}), using JSON fallback")
+    USE_SUPABASE = False
+    from donations import (
+        record_donation, get_donation_stats, get_leaderboard,
+        get_last_milestone, set_last_milestone
+    )
 
 # Cached file_id for gif (set after first upload)
 GIF_FILE_ID = None
@@ -504,7 +516,7 @@ async def show_donate_menu(chat_id: int, user_id: int, context: ContextTypes.DEF
     
     # Add custom amount and leaderboard buttons
     keyboard.append([InlineKeyboardButton(t(user_id, "donate_btn_custom"), callback_data="donate_custom")])
-    keyboard.append([InlineKeyboardButton(t(user_id, "donate_btn_leaderboard"), web_app=WebAppInfo(url=f"{TMA_URL}/leaderboard"))])
+    keyboard.append([InlineKeyboardButton(t(user_id, "donate_btn_leaderboard"), web_app=WebAppInfo(url=f"{TMA_WEB_URL}/leaderboard"))])
     keyboard.append([InlineKeyboardButton(t(user_id, "donate_btn_back"), callback_data="back_to_main")])
     
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -611,7 +623,7 @@ async def handle_custom_donation_amount(update: Update, context: ContextTypes.DE
 
 
 async def create_and_send_invoice(chat_id: int, user_id: int, stars_amount: int, usd_amount: float, context: ContextTypes.DEFAULT_TYPE):
-    """Create invoice link and send payment button"""
+    """Create invoice link and send payment button with Pay in App option"""
     import json
     
     payload = json.dumps({
@@ -632,11 +644,21 @@ async def create_and_send_invoice(chat_id: int, user_id: int, stars_amount: int,
             provider_token=""  # Empty for digital goods
         )
         
-        # Send button with invoice link
-        keyboard = [[InlineKeyboardButton(
-            f"⭐ Pay {stars_amount} Stars (${usd_amount:.2f})",
-            url=invoice_link
-        )]]
+        # TMA Web URL with query params for "Pay in App"
+        # WebAppInfo requires direct HTTPS URL, not t.me link
+        tma_pay_url = f"{TMA_WEB_URL}?amount={usd_amount}&stars={stars_amount}"
+        
+        # Send buttons: Pay directly + Pay in App
+        keyboard = [
+            [InlineKeyboardButton(
+                f"⭐ Pay {stars_amount} Stars (${usd_amount:.2f})",
+                url=invoice_link
+            )],
+            [InlineKeyboardButton(
+                "📱 Pay in App",
+                web_app=WebAppInfo(url=tma_pay_url)
+            )]
+        ]
         reply_markup = InlineKeyboardMarkup(keyboard)
         
         await context.bot.send_message(
