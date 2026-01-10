@@ -26,8 +26,11 @@ ED25519_PRIVATE_KEY_HEX = os.environ.get("RELAY_BETA_SIGNING_KEY", "")
 # This is derived from private key and should be hardcoded in the Swift app
 ED25519_PUBLIC_KEY_HEX = os.environ.get("RELAY_BETA_PUBLIC_KEY", "")
 
-# Telegram Mini App URL for donations (leaderboard only)
+# Telegram Mini App URLs
+# TMA_URL - t.me link for opening TMA from bot buttons (with startapp params)
 TMA_URL = os.environ.get("RELAY_TMA_URL", "https://t.me/relaykeygen_bot/relaypayments")
+# TMA_WEB_URL - direct HTTPS URL for WebAppInfo (must be https://, not t.me)
+TMA_WEB_URL = os.environ.get("RELAY_TMA_WEB_URL", "https://relay-payment-miniapp.vercel.app")
 
 # Donation settings
 DONATION_GOAL_STARS = 50000  # Goal: 50,000 Stars (~$1000)

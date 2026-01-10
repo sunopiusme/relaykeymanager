@@ -51,7 +51,7 @@ def start_health_server():
 from config import (
     BOT_TOKEN, ADMIN_IDS, BETA_DAYS, BETA_COHORT,
     MAX_BETA_USERS, DATA_DIR, DATA_FILE, ED25519_PRIVATE_KEY_HEX,
-    MAX_ACTIVATIONS_PER_KEY, TMA_URL, DONATION_GOAL_STARS, STARS_PER_DOLLAR,
+    MAX_ACTIVATIONS_PER_KEY, TMA_URL, TMA_WEB_URL, DONATION_GOAL_STARS, STARS_PER_DOLLAR,
     DONATION_PRESETS_USD, DONATION_MILESTONES
 )
 from crypto import create_signed_beta_key, generate_discount_code, NACL_AVAILABLE
@@ -504,7 +504,7 @@ async def show_donate_menu(chat_id: int, user_id: int, context: ContextTypes.DEF
     
     # Add custom amount and leaderboard buttons
     keyboard.append([InlineKeyboardButton(t(user_id, "donate_btn_custom"), callback_data="donate_custom")])
-    keyboard.append([InlineKeyboardButton(t(user_id, "donate_btn_leaderboard"), web_app=WebAppInfo(url=f"{TMA_URL}/leaderboard"))])
+    keyboard.append([InlineKeyboardButton(t(user_id, "donate_btn_leaderboard"), web_app=WebAppInfo(url=f"{TMA_WEB_URL}/leaderboard"))])
     keyboard.append([InlineKeyboardButton(t(user_id, "donate_btn_back"), callback_data="back_to_main")])
     
     reply_markup = InlineKeyboardMarkup(keyboard)
